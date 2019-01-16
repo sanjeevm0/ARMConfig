@@ -6,6 +6,12 @@ gitkey=$3
 script=$4
 basedst=$5
 
+printf "bash config.sh" > $basedst/runconfig.sh
+for var in "$@"
+do
+    printf ' "%s"' $var >> $basedst/runconfig.sh
+done
+
 echo bash config.sh "$@" > $basedst/runconfig.sh
 shift 5
 
