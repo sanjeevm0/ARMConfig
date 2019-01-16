@@ -3,4 +3,4 @@
 username=$1
 shift
 
-sudo -H -u $username bash -c config.sh "$@"
+sudo -H -u $username bash -c ./config.sh "$@"
