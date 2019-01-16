@@ -1,15 +1,16 @@
 #!/bin/bash 
 
-apt-get update 
-apt-get install -y --no-install-recommends apt-utils openssh-client git
-
 gitlocation=$1
 gitkey=$2
 script=$3
 basedst=$4
+
+echo bash config.sh "$@" > $basedst/runconfig.sh
+
 shift 4
 
-echo "$@" > $basedst/configargs0
+apt-get update 
+apt-get install -y --no-install-recommends apt-utils openssh-client git
 
 defIFS=$IFS
 IFS='/'
