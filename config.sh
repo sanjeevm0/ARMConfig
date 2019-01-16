@@ -4,7 +4,7 @@ username=$1
 gitlocation=$2
 gitkey=$3
 script=$4
-basedst=$5
+basedst=/home/$username
 
 printf "bash config.sh" > $basedst/runconfig.sh
 for var in "$@"
@@ -31,16 +31,19 @@ gitbranch="${VALS[2]}"
 #echo Repo: $gitrepo
 #echo Branch: $gitbranch
 
-sudo -H -u $username bash << ENDBLOCK
+#sudo -H -u $username bash << ENDBLOCK
 
 sudo apt-get update
 sudo apt-get install -y --no-install-recommends apt-utils openssh-client git
 
 mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
-chmod 400 $basedst/gitkey
+chmod 600 $basedst/gitkey
 
-printf -- "Host *\n    StrictHostKeyChecking no" >> ~/.ssh/config
+mkdir -p ~/.ssh
+printf -- "Host *\n    StrictHostKeyChecking no\n" > ~/.ssh/config
+mkdir -p /home/$username/.ssh
+printf -- "Host *\n    StrictHostKeyChecking no\n" > /home/$username/.ssh/config
 
 ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git clone git@github.com:$gituser/$gitrepo $basedst/$gitrepo; \
@@ -50,6 +53,9 @@ ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git pull"
 
 echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
-bash $basedst/$gitrepo/$script "$@"
 
-ENDBLOCK
+sudo chown -R $username $basedst
+
+sudo -H -u $username bash $basedst/$gitrepo/$script "$@"
+
+#ENDBLOCK
