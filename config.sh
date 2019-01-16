@@ -3,6 +3,8 @@
 apt-get update 
 apt-get install -y --no-install-recommends apt-utils openssh-client git
 
+echo "$@" > $basedst/configargs0
+
 gitlocation=$1
 gitkey=$2
 script=$3
@@ -27,6 +29,8 @@ ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git fetch --all; \
    git checkout $gitbranch; \
    git pull"
+
+echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
 
 bash $basedst/$gitrepo/$script "$@"
 
