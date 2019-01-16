@@ -15,7 +15,7 @@ gitlocation=$2
 gitkey=$(base64 --decode <<< $3)
 script=$4
 
-shift 5
+shift 4
 
 #echo User: $username
 #echo Location: $gitlocation
