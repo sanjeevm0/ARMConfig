@@ -1,9 +1,6 @@
 #!/bin/bash
 
 username=$1
-gitlocation=$2
-gitkey=$3
-script=$4
 basedst=/home/$username
 
 printf "bash config.sh" > $basedst/runconfig.sh
@@ -13,6 +10,10 @@ do
     echo -n $var >> $basedst/runconfig.sh
     printf "'" >> $basedst/runconfig.sh
 done
+
+gitlocation=$2
+gitkey=$(base64 --decode <<< $3)
+script=$4
 
 shift 5
 
@@ -31,6 +32,9 @@ gitbranch="${VALS[2]}"
 #echo Repo: $gitrepo
 #echo Branch: $gitbranch
 
+# Using here document would work, but ARM template extension manager wishes to switch to some other 
+# directory in middle of script causing failure - 
+# Could not change back to '/var/lib/waagent/custom-script/download/22'
 #sudo -H -u $username bash << ENDBLOCK
 
 sudo apt-get update
