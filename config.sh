@@ -56,7 +56,14 @@ ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git checkout $gitbranch; \
    git pull"
 
-echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
+#echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
+printf "bash $basedst/$gitrepo/$script" > $basedst/runconfig1.sh"
+for var in "$@"
+do
+    printf " '" >> $basedst/runconfig1.sh
+    echo -n $var >> $basedst/runconfig1.sh
+    printf "'" >> $basedst/runconfig1.sh
+done
 
 sudo chown -R $username $basedst
 
