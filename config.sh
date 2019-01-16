@@ -12,7 +12,6 @@ do
     printf ' "%s"' $var >> $basedst/runconfig.sh
 done
 
-echo bash config.sh "$@" > $basedst/runconfig.sh
 shift 5
 
 sudo -H -u $username << ENDBLOCK
