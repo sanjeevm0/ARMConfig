@@ -9,7 +9,9 @@ basedst=$5
 printf "bash config.sh" > $basedst/runconfig.sh
 for var in "$@"
 do
-    printf ' "%s"' $var >> $basedst/runconfig.sh
+    printf ' "' >> $basedst/runconfig.sh
+    echo -n $var >> $basedst/runconfig.sh
+    printf '"' >> $basedst/runconfig.sh
 done
 
 shift 5
