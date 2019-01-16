@@ -57,7 +57,7 @@ ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git pull"
 
 #echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
-printf "bash $basedst/$gitrepo/$script" > $basedst/runconfig1.sh"
+printf "bash $basedst/$gitrepo/$script" > $basedst/runconfig1.sh
 for var in "$@"
 do
     printf " '" >> $basedst/runconfig1.sh
