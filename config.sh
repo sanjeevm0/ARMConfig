@@ -3,7 +3,7 @@
 username=$1
 shift
 
-sudo -H -u $username bash -c << EOF
+sudo -H -u $username bash << EOF
 
 gitlocation=$1
 gitkey=$2
