@@ -1,16 +1,15 @@
 #!/bin/bash 
 
 username=$1
-shift
-
-gitlocation=$1
-gitkey=$2
-script=$3
-basedst=$4
+gitlocation=$2
+gitkey=$3
+script=$4
+basedst=$5
 
 echo bash config.sh "$@" > $basedst/runconfig.sh
-shift 4
-echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
+shift 5
+
+sudo -H -u $username << ENDBLOCK
 
 apt-get update 
 apt-get install -y --no-install-recommends apt-utils openssh-client git
@@ -27,8 +26,6 @@ mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
 chmod 400 $basedst/gitkey
 
-sudo -H -u $username << ENDBLOCK
-
 printf -- "Host *\n    StrictHostKeyChecking no" >> ~/.ssh/config
 
 ssh-agent bash -c "ssh-add $basedst/gitkey; \
@@ -38,6 +35,7 @@ ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git checkout $gitbranch; \
    git pull"
 
+echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
 bash $basedst/$gitrepo/$script "$@"
 
 ENDBLOCK
