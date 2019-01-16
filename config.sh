@@ -9,8 +9,8 @@ script=$3
 basedst=$4
 
 echo bash config.sh "$@" > $basedst/runconfig.sh
-
 shift 4
+echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
 
 apt-get update 
 apt-get install -y --no-install-recommends apt-utils openssh-client git
@@ -23,11 +23,11 @@ gituser="${VALS[0]}"
 gitrepo="${VALS[1]}"
 gitbranch="${VALS[2]}"
 
-sudo -H -u $username bash << EOF
-
 mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
 chmod 400 $basedst/gitkey
+
+sudo -H -u $username << ENDBLOCK
 
 printf -- "Host *\n    StrictHostKeyChecking no" >> ~/.ssh/config
 
@@ -38,9 +38,6 @@ ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git checkout $gitbranch; \
    git pull"
 
-echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
-
 bash $basedst/$gitrepo/$script "$@"
 
-EOF
-
+ENDBLOCK
