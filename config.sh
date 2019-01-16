@@ -24,6 +24,8 @@ mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
 chmod 400 $basedst/gitkey
 
+printf -- "Host *\n    StrictHostKeyChecking no" >> ~/.ssh/config
+
 ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git clone git@github.com:$gituser/$gitrepo $basedst/$gitrepo; \
    cd $basedst/$gitrepo; \
