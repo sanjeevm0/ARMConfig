@@ -3,13 +3,13 @@
 apt-get update 
 apt-get install -y --no-install-recommends apt-utils openssh-client git
 
-echo "$@" > $basedst/configargs0
-
 gitlocation=$1
 gitkey=$2
 script=$3
 basedst=$4
 shift 4
+
+echo "$@" > $basedst/configargs0
 
 defIFS=$IFS
 IFS='/'
