@@ -3,8 +3,6 @@
 username=$1
 shift
 
-sudo -H -u $username bash << EOF
-
 gitlocation=$1
 gitkey=$2
 script=$3
@@ -24,6 +22,8 @@ IFS=$defIFS
 gituser="${VALS[0]}"
 gitrepo="${VALS[1]}"
 gitbranch="${VALS[2]}"
+
+sudo -H -u $username bash << EOF
 
 mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
