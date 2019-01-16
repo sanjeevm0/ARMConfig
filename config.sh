@@ -1,5 +1,10 @@
 #!/bin/bash 
 
+username=$1
+shift
+
+sudo -H -u $username bash -c << EOF
+
 gitlocation=$1
 gitkey=$2
 script=$3
@@ -36,4 +41,6 @@ ssh-agent bash -c "ssh-add $basedst/gitkey; \
 echo bash $basedst/$gitrepo/$script "$@" > $basedst/configargs1
 
 bash $basedst/$gitrepo/$script "$@"
+
+EOF
 
