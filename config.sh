@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 username=$1
 gitlocation=$2
@@ -16,10 +16,8 @@ done
 
 shift 5
 
-sudo -H -u $username << ENDBLOCK
-
-apt-get update 
-apt-get install -y --no-install-recommends apt-utils openssh-client git
+#echo User: $username
+#echo Location: $gitlocation
 
 defIFS=$IFS
 IFS='/'
@@ -28,6 +26,15 @@ IFS=$defIFS
 gituser="${VALS[0]}"
 gitrepo="${VALS[1]}"
 gitbranch="${VALS[2]}"
+
+#echo User: $gituser
+#echo Repo: $gitrepo
+#echo Branch: $gitbranch
+
+sudo -H -u $username bash << ENDBLOCK
+
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends apt-utils openssh-client git
 
 mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
