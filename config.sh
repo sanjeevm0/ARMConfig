@@ -45,9 +45,9 @@ printf -- "$gitkey" > $basedst/gitkey
 chmod 600 $basedst/gitkey
 
 mkdir -p ~/.ssh
-printf -- "Host *\n    StrictHostKeyChecking no\n" > ~/.ssh/config
+printf -- "Host *\n    StrictHostKeyChecking no\n    UserKnownHostsFile /dev/null\n" > ~/.ssh/config
 mkdir -p /home/$username/.ssh
-printf -- "Host *\n    StrictHostKeyChecking no\n" > /home/$username/.ssh/config
+printf -- "Host *\n    StrictHostKeyChecking no\n    UserKnownHostsFile /dev/null\n" > /home/$username/.ssh/config
 
 ssh-agent bash -c "ssh-add $basedst/gitkey; \
    git clone git@github.com:$gituser/$gitrepo $basedst/$gitrepo; \
