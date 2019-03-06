@@ -38,7 +38,7 @@ gitbranch="${VALS[2]}"
 #sudo -H -u $username bash << ENDBLOCK
 
 sudo apt-get update
-sudo apt-get install -y --no-install-recommends apt-utils openssh-client git
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils openssh-client git
 
 mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
