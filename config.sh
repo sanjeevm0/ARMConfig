@@ -37,8 +37,8 @@ gitbranch="${VALS[2]}"
 # Could not change back to '/var/lib/waagent/custom-script/download/22'
 #sudo -H -u $username bash << ENDBLOCK
 
-sudo apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils openssh-client git
+sudo yum update
+sudo yum install -y openssh-clients git
 
 mkdir -p $basedst
 printf -- "$gitkey" > $basedst/gitkey
